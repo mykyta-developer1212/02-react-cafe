@@ -1,17 +1,13 @@
 import styles from "./VoteStats.module.css";
+import type { Votes } from "../../types/votes";
 
-type VoteStatsProps = {
-  votes: {
-    good: number;
-    neutral: number;
-    bad: number;
-  };
-};
+interface VoteStatsProps {
+  votes: Votes;
+  totalVotes: number;
+  positiveRate: number;
+}
 
-function VoteStats({ votes }: VoteStatsProps) {
-  const total = votes.good + votes.neutral + votes.bad;
-  const positive = total > 0 ? Math.round((votes.good / total) * 100) : 0;
-
+function VoteStats({ votes, totalVotes, positiveRate }: VoteStatsProps) {
   return (
     <div className={styles.container}>
       <p className={styles.stat}>
@@ -24,10 +20,10 @@ function VoteStats({ votes }: VoteStatsProps) {
         Bad: <strong>{votes.bad}</strong>
       </p>
       <p className={styles.stat}>
-        Total: <strong>{total}</strong>
+        Total: <strong>{totalVotes}</strong>
       </p>
       <p className={styles.stat}>
-       Positive: <strong>{positive} %</strong>
+        Positive: <strong>{positiveRate} %</strong>
       </p>
     </div>
   );
